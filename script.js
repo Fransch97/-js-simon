@@ -14,6 +14,7 @@ const choosedNumbers = [];
 const Userchoised = [];
 const rightNumbers = [];
 let score = 0;
+const userAll = []
 
 
 
@@ -48,17 +49,17 @@ function generateNumbersSpan(){
     
     for(let i = 0; i < 5; i++){
         let numeber = randomNumber(99)
-        console.log(numeber)
+        console.log(numeber);
         if(!choosedNumbers.includes(numeber)){
-            choosedNumbers.push(numeber)
-            console.log(choosedNumbers)
+            choosedNumbers.push(numeber);
+            console.log(choosedNumbers);
         }else{
-            let dlag = false
+            let dlag = false;
             while(!dlag){
-                numeber = randomNumber(99)
+                numeber = randomNumber(99);
                 if(!choosedNumbers.includes(numeber));
-                choosedNumbers.push(numeber)
-                console.log(choosedNumbers)
+                choosedNumbers.push(numeber);
+                console.log(choosedNumbers);
                 dlag = true;
             }
         }
@@ -75,7 +76,7 @@ function generateNumbersSpan(){
 function timer(counter){
    const timer = setInterval(function(){
         console.log(counter--);
-        timerHtml.innerHTML = counter
+        timerHtml.innerHTML = counter;
         if(counter<0){
             clearInterval(timer);
             gameDisplay.classList.add('hide');
@@ -90,14 +91,15 @@ function startQuestion(){
     // alert("Usciranno 5 prompt digita e invia in fila i numeri che ricordi"),
     for(let i = 0; i<5; i++){
         const numberUser = parseInt(prompt(`Inserisci il numero ${i+1} su 5` ))
-        Userchoised.push(numberUser)
+        Userchoised.push(numberUser);
+        userAll.push(numberUser)
     }
-    console.log("user number",Userchoised)
-    console.log("pc number",choosedNumbers)
+    console.log("user number",Userchoised);
+    console.log("pc number",choosedNumbers);
     controlNumbers();
-    console.log("rightnumbers", rightNumbers)
-    resultHtlm()
-    document.querySelector('button').classList.remove('hide')
+    console.log("rightnumbers", rightNumbers);
+    resultHtlm();
+    document.querySelector('button').classList.remove('hide');
 }
 
 
@@ -117,9 +119,37 @@ function controlNumbers(){
 }
 
 function resultHtlm(){
-    gameDisplayTwo.classList.remove('hide')
+    gameDisplayTwo.classList.remove('hide');
+    const resultShow = document.querySelector('.result-show');
+    for(let i = 0; i< 5; i++){
+        const creatSpan = document.createElement('span');
+        let numberToPush = userAll[i];
+        if(rightNumbers.includes(numberToPush)){
+            creatSpan.style.cssText = "background-color: green"
+            creatSpan.innerHTML = numberToPush;
+            console.log(creatSpan)
+            resultShow.append(creatSpan);
+        }else{
+            creatSpan.style.cssText = "background-color: red"
+            creatSpan.innerHTML = numberToPush;
+            resultShow.append(creatSpan);
+            console.log(creatSpan)
 
-    gameDisplayTwo.innerHTML = `<h2> Hai indovinato ${score} Numeri. <br> ${rightNumbers} </h2>`;
+        }
+    }
+
+
+     if( score === 1){
+        gameDisplayTwo.innerHTML = `<h2>Scarso <br>Hai indovinato ${score} Numero. <br> [${rightNumbers}] </h2>`;
+    }else if(score === 0){
+        gameDisplayTwo.innerHTML = `<h2>Non ci siamo propio.<br> Non hai indovinato un Numero. <br>[${rightNumbers}]  </h2>`;
+    }else if(score <=3){
+        gameDisplayTwo.innerHTML = `<h2>Puoi fare di meglio! <br> Hai indovinato ${score} Numeri. <br>[${rightNumbers}]  </h2>`;
+    }else if(score === 4){
+        gameDisplayTwo.innerHTML = `<h2>Quasi! <br> Puoi fare di meglio! <br> Hai indovinato ${score} Numeri. <br>[${rightNumbers}]  </h2>`;
+    }else{
+        gameDisplayTwo.innerHTML = `<h2>Grande hai vinto! <br> Hai indovinato ${score} Numeri. <br>[${rightNumbers}]  </h2>`;
+    }
 }
 
 

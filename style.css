@@ -41,3 +41,6 @@ span{
     padding: 30px;
     font-size: 50px;
 }
+.hide-show{
+    display: none;
+}
