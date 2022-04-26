@@ -8,6 +8,7 @@ console.log(timerHtml);
 const counter = 5;
 const gameDisplay = document.querySelector('.game')
 console.log(gameDisplay)
+const gameDisplayTwo = document.querySelector('.game2')
 
 const choosedNumbers = [];
 const Userchoised = [];
@@ -24,6 +25,8 @@ function startEverthing(){
     timer(counter);
     document.querySelector('button').innerHTML = "Replay"
     document.querySelector('button').classList.add('hide')
+    gameDisplayTwo.classList.add('hide')
+
 }
 
 function resetGame(){
@@ -31,6 +34,9 @@ function resetGame(){
     Userchoised.length = 0;
     rightNumbers.length = 0;
     score = 0;
+    gameDisplay.classList.remove('hide')
+    timerHtml.innerHTML = 5
+
 }
 
 function randomNumber(to){
@@ -111,8 +117,9 @@ function controlNumbers(){
 }
 
 function resultHtlm(){
-    gameDisplay.innerHTML = `<h2> Hai indovinato ${score} Numeri. <br> ${rightNumbers} </h2>`;
-    gameDisplay.classList.remove('hide')
+    gameDisplayTwo.classList.remove('hide')
+
+    gameDisplayTwo.innerHTML = `<h2> Hai indovinato ${score} Numeri. <br> ${rightNumbers} </h2>`;
 }
 
 
