@@ -1,5 +1,5 @@
 console.log("I'm alive ");
-const btn = document.querySelector('button');
+const btn = document.querySelector('button').addEventListener('click', startEverthing);
 console.log(btn);
 const spanNumbers = document.querySelectorAll('span')
 console.log(spanNumbers);
@@ -9,10 +9,29 @@ const counter = 5;
 const gameDisplay = document.querySelector('.game')
 console.log(gameDisplay)
 
-const choosedNumbers = []
-const Userchoised = []
-const rightNumbers = []
+const choosedNumbers = [];
+const Userchoised = [];
+const rightNumbers = [];
+let score = 0;
 
+
+
+
+function startEverthing(){
+    gameDisplay.classList.remove('hide')
+    resetGame();
+    generateNumbersSpan();
+    timer(counter);
+    document.querySelector('button').innerHTML = "Replay"
+    document.querySelector('button').classList.add('hide')
+}
+
+function resetGame(){
+    choosedNumbers.length = 0;
+    Userchoised.length = 0;
+    rightNumbers.length = 0;
+    score = 0;
+}
 
 function randomNumber(to){
     const number = Math.ceil(Math.random()* to)
@@ -44,12 +63,13 @@ function generateNumbersSpan(){
     }
 }
 
-generateNumbersSpan()
+// generateNumbersSpan()
 
 
 function timer(counter){
    const timer = setInterval(function(){
         console.log(counter--);
+        timerHtml.innerHTML = counter
         if(counter<0){
             clearInterval(timer);
             gameDisplay.classList.add('hide');
@@ -58,17 +78,24 @@ function timer(counter){
         }, 1000)
 }
 
-timer(counter)
+// timer(counter)
 
 function startQuestion(){
     // alert("Usciranno 5 prompt digita e invia in fila i numeri che ricordi"),
     for(let i = 0; i<5; i++){
-        const numberUser = parseInt(prompt(`Inserisci il numero ${i+1}` ))
+        const numberUser = parseInt(prompt(`Inserisci il numero ${i+1} su 5` ))
         Userchoised.push(numberUser)
     }
     console.log("user number",Userchoised)
     console.log("pc number",choosedNumbers)
-    // controlNumbers();
+    controlNumbers();
+    console.log("rightnumbers", rightNumbers)
+    resultHtlm()
+    document.querySelector('button').classList.remove('hide')
+}
+
+
+function controlNumbers(){
     for(let i = 0; i< 5 ; i++){
         const controll = choosedNumbers.includes(Userchoised[i]);
 
@@ -76,22 +103,19 @@ function startQuestion(){
             console.log(choosedNumbers.includes(Userchoised[i]));
             rightNumbers.push(Userchoised[i]);
             console.log("rightnumbers",rightNumbers);
+            score++
         }else{
             console.log(false)
         }
     }
-    console.log("rightnumbers", rightNumbers)
+}
+
+function resultHtlm(){
+    gameDisplay.innerHTML = `<h2> Hai indovinato ${score} Numeri. <br> ${rightNumbers} </h2>`;
+    gameDisplay.classList.remove('hide')
 }
 
 
-// function controlNumbers(){
-//     for(let i = 0; i< choosedNumbers.length ; i++){
-//         if(choosedNumbers.includes(Userchoised[i])){
-//             rightNumbers.push(Userchoised)
-//             console.log("rightnumbers",rightNumbers);
-//         }
-//     }
-// }
 
 // Esercizio di oggi: **Simon Says**
 // nome repo: js-simon
