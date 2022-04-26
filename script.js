@@ -3,11 +3,15 @@ const btn = document.querySelector('button');
 console.log(btn);
 const spanNumbers = document.querySelectorAll('span')
 console.log(spanNumbers);
+const timerHtml = document.querySelector('.counter')
+console.log(timerHtml);
+const counter = 5;
+const gameDisplay = document.querySelector('.game')
+console.log(gameDisplay)
 
-
-
-
-
+const choosedNumbers = []
+const Userchoised = []
+const rightNumbers = []
 
 
 function randomNumber(to){
@@ -16,7 +20,7 @@ function randomNumber(to){
 }
 
 function generateNumbersSpan(){
-    const choosedNumbers = []
+    
     for(let i = 0; i < 5; i++){
         let numeber = randomNumber(99)
         console.log(numeber)
@@ -39,7 +43,55 @@ function generateNumbersSpan(){
         spanNumbers[i].innerHTML = choosedNumbers[i];
     }
 }
+
 generateNumbersSpan()
+
+
+function timer(counter){
+   const timer = setInterval(function(){
+        console.log(counter--);
+        if(counter<0){
+            clearInterval(timer);
+            gameDisplay.classList.add('hide');
+            startQuestion();
+        }
+        }, 1000)
+}
+
+timer(counter)
+
+function startQuestion(){
+    // alert("Usciranno 5 prompt digita e invia in fila i numeri che ricordi"),
+    for(let i = 0; i<5; i++){
+        const numberUser = parseInt(prompt(`Inserisci il numero ${i+1}` ))
+        Userchoised.push(numberUser)
+    }
+    console.log("user number",Userchoised)
+    console.log("pc number",choosedNumbers)
+    // controlNumbers();
+    for(let i = 0; i< 5 ; i++){
+        const controll = choosedNumbers.includes(Userchoised[i]);
+
+        if(controll){
+            console.log(choosedNumbers.includes(Userchoised[i]));
+            rightNumbers.push(Userchoised[i]);
+            console.log("rightnumbers",rightNumbers);
+        }else{
+            console.log(false)
+        }
+    }
+    console.log("rightnumbers", rightNumbers)
+}
+
+
+// function controlNumbers(){
+//     for(let i = 0; i< choosedNumbers.length ; i++){
+//         if(choosedNumbers.includes(Userchoised[i])){
+//             rightNumbers.push(Userchoised)
+//             console.log("rightnumbers",rightNumbers);
+//         }
+//     }
+// }
 
 // Esercizio di oggi: **Simon Says**
 // nome repo: js-simon
