@@ -36,7 +36,8 @@ function resetGame(){
     rightNumbers.length = 0;
     score = 0;
     gameDisplay.classList.remove('hide')
-    timerHtml.innerHTML = 5
+    timerHtml.innerHTML = 5;
+    document.querySelector('.result-show').innerHTML =""
 
 }
 
